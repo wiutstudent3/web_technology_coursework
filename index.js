@@ -31,4 +31,12 @@ app.get('/home', (req, res) => {
   res.redirect('/');
 });
 
+// show students page
+app.get('/students', (req, res) => {
+  db.all(select, [], (err, data) => {
+    if (err) throw err;
+    res.render('students', { studentData: data });
+  });
+});
+
 app.listen(3000);
