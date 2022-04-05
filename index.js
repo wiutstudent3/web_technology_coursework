@@ -39,4 +39,47 @@ app.get('/students', (req, res) => {
   });
 });
 
+// go to create page
+app.get('/create', (req, res) => {
+  res.render('create');
+});
+
+// Create new student record
+app.post('/create', (req, res) => {
+  const dataForm = req.body;
+  if (
+    dataForm.first_name.length === 0 ||
+    dataForm.last_name.length === 0 ||
+    dataForm.student_id.length === 0 ||
+    dataForm.phone_number.length === 0 ||
+    dataForm.email.length === 0
+  ) {
+    res.render('create', { error: true });
+  } else {
+    let insert =
+      'insert into students(first_name, last_name, student_id, phone_number, email) values (?, ?, ?, ?, ?)';
+
+    db.run(
+      insert,
+      [
+        dataForm.first_name,
+        dataForm.last_name,
+        dataForm.student_id,
+        dataForm.phone_number,
+        dataForm.email,
+      ],
+      (err) => {
+        if (err) throw err;
+        console.log('new record inserted successfully!');
+      }
+    );
+  }
+
+  db.all(select, [], (err, data) => {
+    if (err) throw err;
+    // res.redirect('/students');
+    res.render('students', { studentData: data });
+  });
+});
+
 app.listen(3000);

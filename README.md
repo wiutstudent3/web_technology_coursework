@@ -10,7 +10,7 @@ This is a student management database
 git clone https://github.com/wiutstudentbis/Web_Tech_CW.git
 ```
 
-you can download  \*.zip file and open
+you can download \*.zip file and open
 
 2. Install dependencies
 
@@ -31,7 +31,5 @@ node index
 - pug
 
 ### Link to github repo
-https://github.com/wiutstudentbis/Web_Tech_CW.git
 
 ### Link to the Website URL
-https://handsome-whispering-sign.glitch.me
