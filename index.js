@@ -82,4 +82,17 @@ app.post('/create', (req, res) => {
   });
 });
 
+// deleting a student record
+app.get('/students/:id/delete', (req, res) => {
+  id = req.params.id;
+
+  db.run('delete from students where id = ?', id, (err) => {
+    if (err) throw err;
+    db.all(select, [], (err, data) => {
+      if (err) throw err;
+      res.render('students', { studentData: data });
+    });
+  });
+});
+
 app.listen(3000);
