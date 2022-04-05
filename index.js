@@ -95,4 +95,44 @@ app.get('/students/:id/delete', (req, res) => {
   });
 });
 
+// going to update page
+app.get('/students/:id/edit', (req, res) => {
+  const id = req.params.id;
+  db.get('select * from students where id=?', id, (err, row) => {
+    res.render('edit', { studentData: row, id: id });
+  });
+});
+
+// updating selected student data
+app.post('/students/:id/edit', (req, res) => {
+  const dataForm = req.body;
+  const id = req.params.id;
+
+  if (dataForm.first_name.length === 0) {
+    db.get('select * from students where id=?', id, (err, row) => {
+      if (err) throw err;
+
+      res.render('edit', { studentData: row, id: id, error: true });
+    });
+  } else {
+    let update =
+      'update students set first_name = ?, last_name = ?, phone_number = ?, email = ? where id = ?';
+
+    db.run(
+      update,
+      [
+        dataForm.first_name,
+        dataForm.last_name,
+        dataForm.phone_number,
+        dataForm.email,
+        id,
+      ],
+      (err) => {
+        if (err) throw err;
+      }
+    );
+    res.redirect('/students');
+  }
+});
+
 app.listen(3000);
