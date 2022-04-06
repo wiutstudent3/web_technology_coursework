@@ -7,7 +7,7 @@ This is a student management database
 1. Downloading the source code
 
 ```bash
-git clone https://github.com/wiutstudentbis/Web_Tech_CW.git
+https://github.com/wiutstudent3/web_technology_coursework.git
 ```
 
 you can download \*.zip file and open
